@@ -10,7 +10,7 @@ export const CircleNumberDot = ({
   ctx.beginPath();
   ctx.rect(x, y, 1, 1);
 
-  ctx.lineWidth = 10;
+  ctx.lineWidth = 6;
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
   ctx.strokeStyle = 'blue';

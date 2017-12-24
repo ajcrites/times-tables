@@ -11,31 +11,45 @@ const ControlsContainer = glamorous.div({
 });
 
 export interface TimesTableControlsProps {
+  timesTableValue: number;
+  pointCountValue: number;
   changeTable: Function;
   changePoints: Function;
-  play?: Function;
-  pause?: Function;
+  play: Function;
+  pause: Function;
 }
 
 export class TimesTableControls extends React.Component<
   TimesTableControlsProps
 > {
-  timesTableInput: any = { value: 2 };
-  pointsInput: any = { value: 10 };
+  state = { playing: false };
 
   constructor(props: TimesTableControlsProps) {
     super(props);
   }
 
+  play() {
+    this.setState({ playing: true });
+    this.props.play();
+  }
+
+  pause() {
+    this.setState({ playing: false });
+    this.props.pause();
+  }
+
   render() {
     return (
       <ControlsContainer>
+        <button onClick={() => this.play()} hidden={this.state.playing}>
+          ►
+        </button>
+        <button onClick={() => this.pause()} hidden={!this.state.playing}>
+          ❚ ❚
+        </button>
         <label>
           Times Table:{' '}
           <input
-            ref={input => {
-              this.timesTableInput = input;
-            }}
             type="range"
             min=".1"
             max="100"
@@ -43,14 +57,11 @@ export class TimesTableControls extends React.Component<
             defaultValue="2"
             onInput={ev => this.props.changeTable(ev)}
           />
-          {this.timesTableInput.value}
+          {this.props.timesTableValue.toFixed(1)}
         </label>
         <label>
           Number of Points:{' '}
           <input
-            ref={input => {
-              this.pointsInput = input;
-            }}
             type="range"
             min="2"
             max="300"
@@ -58,7 +69,7 @@ export class TimesTableControls extends React.Component<
             defaultValue="10"
             onInput={ev => this.props.changePoints(ev)}
           />
-          {this.pointsInput.value}
+          {this.props.pointCountValue}
         </label>
       </ControlsContainer>
     );

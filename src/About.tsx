@@ -90,7 +90,7 @@ export class About extends React.Component {
 
     return (
       <AboutContainer>
-        <AboutIndicator onClick={this.animateIn.bind(this)}>?</AboutIndicator>
+        <AboutIndicator onClick={() => this.animateIn()}>?</AboutIndicator>
 
         <div hidden={this.state.hidden}>
           <Overlay style={overlayStyle} />
@@ -155,7 +155,13 @@ export class About extends React.Component {
               Try playing around with the number of points as well as the times
               table value to see what interesting shapes you can create!
             </p>
-            <CloseButton onClick={this.animateOut.bind(this)}>×</CloseButton>
+            <p>
+              Change the numbers as you wish. You can also press the play
+              button,
+              <button>►</button> which will increase the times table by{' '}
+              <code>.1</code> every tenth of a second.
+            </p>
+            <CloseButton onClick={() => this.animateOut()}>×</CloseButton>
           </AboutContent>
         </div>
       </AboutContainer>
