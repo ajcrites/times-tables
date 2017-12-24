@@ -4,16 +4,25 @@ import { Circle } from './Circle';
 import { CircleNumberDot } from './CircleNumberDot';
 import { LineValue } from './LineValue';
 
-export class TimesTable extends React.Component {
+export interface TimesTableProps {
+  pointCount: number;
+  timesTable: number;
+}
+
+export interface TimesTableState {
+  ctx?: CanvasRenderingContext2D;
+}
+
+export class TimesTable extends React.Component<
+  TimesTableProps,
+  TimesTableState
+> {
   canvas: HTMLCanvasElement;
-  state: {
-    ctx?: CanvasRenderingContext2D;
-    pointCount: number;
-    timesTable: number;
-  } = {
-    pointCount: 10,
-    timesTable: 2,
-  };
+
+  constructor(props: TimesTableProps) {
+    super(props);
+    this.state = {};
+  }
 
   componentDidMount() {
     this.canvas.height = window.innerHeight;
@@ -21,6 +30,17 @@ export class TimesTable extends React.Component {
     this.setState({
       ctx: this.canvas.getContext('2d') as CanvasRenderingContext2D,
     });
+  }
+
+  componentWillReceiveProps() {
+    if (this.state.ctx) {
+      this.state.ctx.clearRect(
+        0,
+        0,
+        this.state.ctx.canvas.width,
+        this.state.ctx.canvas.height,
+      );
+    }
   }
 
   render() {
@@ -33,10 +53,10 @@ export class TimesTable extends React.Component {
           ? this.canvas.height * 0.4
           : this.canvas.width * 0.4;
       circle = <Circle ctx={this.state.ctx} radius={radius} />;
-      const entries = new Array(this.state.pointCount).fill(1);
+      const entries = new Array(+this.props.pointCount).fill(1);
       const calculatePoint = (value: number) => {
         const angle =
-          (360 / this.state.pointCount * value - 90) * Math.PI / 180;
+          (360 / this.props.pointCount * value - 90) * Math.PI / 180;
         return [
           Math.sin(angle) * radius + this.canvas.width / 2,
           Math.cos(angle) * radius + this.canvas.height / 2,
@@ -44,7 +64,7 @@ export class TimesTable extends React.Component {
       };
       const dotPoints = entries.map((_, idx) => calculatePoint(idx));
       const lineEndPoints = entries.map((_, idx) =>
-        calculatePoint(idx * this.state.timesTable),
+        calculatePoint(idx * this.props.timesTable),
       );
 
       dots = dotPoints.map(([x, y], idx) => (
@@ -67,6 +87,7 @@ export class TimesTable extends React.Component {
         />
       ));
     }
+
     return (
       <canvas ref={ref => (this.canvas = ref as HTMLCanvasElement)}>
         {circle}
