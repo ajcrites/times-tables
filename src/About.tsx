@@ -52,6 +52,9 @@ const CloseButton = glamorous.span({
   cursor: 'pointer',
 });
 
+/**
+ * About page explaining what the app is all about
+ */
 export class About extends React.Component {
   state: {
     hidden: boolean;

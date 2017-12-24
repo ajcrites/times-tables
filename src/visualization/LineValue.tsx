@@ -1,3 +1,8 @@
+/**
+ * Draw a line in the times table. The starting point is the index / operand
+ * value, and the ending point is calculated based on said value multiplied
+ * by the times table value.
+ */
 export const LineValue = ({
   ctx,
   startX,

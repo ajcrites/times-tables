@@ -1,3 +1,7 @@
+/**
+ * Draw a point on the circle representing a numerical value / operand in
+ * the times table.
+ */
 export const CircleNumberDot = ({
   ctx,
   x,

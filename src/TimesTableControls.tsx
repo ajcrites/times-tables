@@ -19,6 +19,10 @@ export interface TimesTableControlsProps {
   pause: Function;
 }
 
+/**
+ * Controls that allow you to set the times table as well as the number of
+ * points as well as play/pause functionality.
+ */
 export class TimesTableControls extends React.Component<
   TimesTableControlsProps
 > {

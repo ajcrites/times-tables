@@ -1,3 +1,9 @@
+/**
+ * Draw the circle part of the times table diagram on the canvas.
+ *
+ * We put this in the very center -- its midpoint is width/2,height/2 and
+ * its radius is calculated by TimesTable.
+ */
 export const Circle = ({
   ctx,
   radius,

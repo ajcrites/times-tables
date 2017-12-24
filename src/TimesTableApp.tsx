@@ -4,6 +4,10 @@ import { TimesTable } from './visualization/TimesTable';
 import { TimesTableControls } from './TimesTableControls';
 import { About } from './About';
 
+/**
+ * Main app container. Renders the About information, the times table itself,
+ * and the times table controls
+ */
 export class TimesTableApp extends React.Component {
   playInterval: number;
 
