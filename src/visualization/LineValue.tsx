@@ -9,16 +9,18 @@ export const LineValue = ({
   startY,
   endX,
   endY,
+  color,
 }: {
   ctx: CanvasRenderingContext2D;
   startX: number;
   startY: number;
   endX: number;
   endY: number;
+  color: string;
 }) => {
   ctx.beginPath();
-  ctx.lineWidth = 1;
-  ctx.strokeStyle = 'black';
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = color;
   ctx.moveTo(startX, startY);
   ctx.lineTo(endX, endY);
 

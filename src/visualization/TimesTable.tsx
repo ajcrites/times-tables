@@ -7,6 +7,7 @@ import { LineValue } from './LineValue';
 export interface TimesTableProps {
   pointCount: number;
   timesTable: number;
+  lineColor: string;
 }
 
 export interface TimesTableState {
@@ -140,6 +141,7 @@ export class TimesTable extends React.Component<
           startY={dotPoints[idx][1]}
           endX={endX}
           endY={endY}
+          color={this.props.lineColor}
         />
       ));
     }

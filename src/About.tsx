@@ -96,7 +96,7 @@ export class About extends React.Component {
         <AboutIndicator onClick={() => this.animateIn()}>?</AboutIndicator>
 
         <div hidden={this.state.hidden}>
-          <Overlay style={overlayStyle} />
+          <Overlay onClick={() => this.animateOut()} style={overlayStyle} />
           <AboutContent style={contentStyle}>
             <p>
               This is a visualization of a <strong>times table</strong> inspired
@@ -162,7 +162,8 @@ export class About extends React.Component {
               Change the numbers as you wish. You can also press the play
               button,
               <button>►</button> which will increase the times table by{' '}
-              <code>.1</code> every tenth of a second.
+              <code>.1</code> every tenth of a second. It will also cycle
+              through stunning colors for the lines.
             </p>
             <CloseButton onClick={() => this.animateOut()}>×</CloseButton>
           </AboutContent>

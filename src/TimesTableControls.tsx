@@ -6,8 +6,24 @@ const ControlsContainer = glamorous.div({
   position: 'fixed',
   bottom: 0,
   right: 0,
-  backgroundColor: 'gray',
+  backgroundColor: '#DDDDDD',
   whiteSpace: 'nowrap',
+  padding: '5px',
+});
+
+const BlockLabel = glamorous.label({
+  display: 'block',
+  marginTop: '8px',
+});
+
+const LabelText = glamorous.span({
+  display: 'inline-block',
+  width: '150px',
+});
+
+const SliderInput = glamorous.input({
+  verticalAlign: 'middle',
+  marginRight: '10px',
 });
 
 export interface TimesTableControlsProps {
@@ -15,8 +31,10 @@ export interface TimesTableControlsProps {
   pointCountValue: number;
   changeTable: Function;
   changePoints: Function;
+  changeColor: Function;
   play: Function;
   pause: Function;
+  playing: boolean;
 }
 
 /**
@@ -26,34 +44,30 @@ export interface TimesTableControlsProps {
 export class TimesTableControls extends React.Component<
   TimesTableControlsProps
 > {
-  state = { playing: false };
-
   constructor(props: TimesTableControlsProps) {
     super(props);
   }
 
   play() {
-    this.setState({ playing: true });
     this.props.play();
   }
 
   pause() {
-    this.setState({ playing: false });
     this.props.pause();
   }
 
   render() {
     return (
       <ControlsContainer>
-        <button onClick={() => this.play()} hidden={this.state.playing}>
+        <button onClick={() => this.play()} hidden={this.props.playing}>
           ►
         </button>
-        <button onClick={() => this.pause()} hidden={!this.state.playing}>
+        <button onClick={() => this.pause()} hidden={!this.props.playing}>
           ❚ ❚
         </button>
-        <label>
-          Times Table:{' '}
-          <input
+        <BlockLabel>
+          <LabelText>Times Table: </LabelText>
+          <SliderInput
             type="range"
             min=".1"
             max="100"
@@ -62,10 +76,10 @@ export class TimesTableControls extends React.Component<
             onInput={ev => this.props.changeTable(ev)}
           />
           {this.props.timesTableValue.toFixed(1)}
-        </label>
-        <label>
-          Number of Points:{' '}
-          <input
+        </BlockLabel>
+        <BlockLabel>
+          <LabelText>Number of Points: </LabelText>
+          <SliderInput
             type="range"
             min="2"
             max="300"
@@ -74,7 +88,11 @@ export class TimesTableControls extends React.Component<
             onInput={ev => this.props.changePoints(ev)}
           />
           {this.props.pointCountValue}
-        </label>
+        </BlockLabel>
+        <BlockLabel>
+          <LabelText>Color:</LabelText>
+          <input type="color" onInput={ev => this.props.changeColor(ev)} />
+        </BlockLabel>
       </ControlsContainer>
     );
   }
