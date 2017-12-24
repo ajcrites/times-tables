@@ -39,6 +39,18 @@ export class TimesTable extends React.Component<
     this.setState({
       ctx: this.canvas.getContext('2d') as CanvasRenderingContext2D,
     });
+
+    window.addEventListener('resize', this.redraw.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.redraw.bind(this));
+  }
+
+  redraw() {
+    this.canvas.height = window.innerHeight;
+    this.canvas.width = window.innerWidth;
+    this.setState(this.state);
   }
 
   /**

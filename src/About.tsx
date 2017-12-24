@@ -163,7 +163,7 @@ export class About extends React.Component {
               button,
               <button>►</button> which will increase the times table by{' '}
               <code>.1</code> every tenth of a second. It will also cycle
-              through stunning colors for the lines.
+              through vibrant colors for the lines.
             </p>
             <CloseButton onClick={() => this.animateOut()}>×</CloseButton>
           </AboutContent>

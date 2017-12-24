@@ -22,7 +22,7 @@ const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
   },
   ({ hideOnPhone }) => ({
     '@media(max-width: 480px)': {
-      display: hideOnPhone ? 'none' : 'block',
+      visibility: hideOnPhone ? 'hidden' : 'visible',
     },
   }),
 );
@@ -35,6 +35,12 @@ const LabelText = glamorous.span({
 const SliderInput = glamorous.input({
   verticalAlign: 'middle',
   marginRight: '10px',
+});
+
+const ValueSpan = glamorous.span({
+  width: '40px',
+  textAlign: 'right',
+  display: 'inline-block',
 });
 
 export interface TimesTableControlsProps {
@@ -67,9 +73,17 @@ export class TimesTableControls extends React.Component<
     this.props.pause();
   }
 
+  formatTimesTableValue(value: number) {
+    const displayValue = value.toFixed(1);
+    if ('0' === displayValue.split('.')[1]) {
+      return value.toFixed(0);
+    }
+    return displayValue;
+  }
+
   render() {
     return (
-      <ControlsContainer>
+      <ControlsContainer className="iphonex-bottom">
         <button onClick={() => this.play()} hidden={this.props.playing}>
           ►
         </button>
@@ -86,7 +100,9 @@ export class TimesTableControls extends React.Component<
             defaultValue="2"
             onInput={ev => this.props.changeTable(ev)}
           />
-          {this.props.timesTableValue.toFixed(1)}
+          <ValueSpan>
+            {this.formatTimesTableValue(this.props.timesTableValue)}
+          </ValueSpan>
         </BlockLabel>
         <BlockLabel>
           <LabelText>Number of Points: </LabelText>
@@ -98,9 +114,9 @@ export class TimesTableControls extends React.Component<
             defaultValue="10"
             onInput={ev => this.props.changePoints(ev)}
           />
-          {this.props.pointCountValue}
+          <ValueSpan>{this.props.pointCountValue}</ValueSpan>
         </BlockLabel>
-        <BlockLabel hideOnPhone>
+        <BlockLabel hideOnPhone={true}>
           <LabelText>Color:</LabelText>
           <input type="color" onInput={ev => this.props.changeColor(ev)} />
         </BlockLabel>

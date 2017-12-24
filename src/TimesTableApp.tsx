@@ -30,30 +30,33 @@ export class TimesTableApp extends React.Component {
     this.setState({ playing: false });
   }
 
+  getVibrantColor() {
+    return `hsl(${random(0, 360)},${random(70, 100)}%,${random(35, 55)}%)`;
+  }
+
   play() {
     this.playInterval = window.setInterval(() => {
-      let playing = true;
       let timesTable = this.state.timesTable + 0.1;
       let lineColor = this.state.lineColor;
       if ('5' === timesTable.toFixed(1).split('.')[1]) {
-        lineColor = `hsl(${random(0, 360)},${random(70, 100)}%,${random(
-          35,
-          55,
-        )}%)`;
+        lineColor = this.getVibrantColor();
       }
 
       if (timesTable > 100) {
         timesTable = 100;
-        playing = false;
         this.pause();
       }
 
       this.setState({
         timesTable,
         lineColor,
-        playing,
       });
     }, 100);
+
+    this.setState({
+      lineColor: this.getVibrantColor(),
+      playing: true,
+    });
   }
 
   render() {
@@ -67,11 +70,11 @@ export class TimesTableApp extends React.Component {
         <TimesTableControls
           timesTableValue={this.state.timesTable}
           pointCountValue={this.state.pointCount}
-          changeTable={(ev: any) =>
+          changeTable={(ev: { target: { value: string } }) =>
             this.setState({ timesTable: +ev.target.value })}
-          changePoints={(ev: any) =>
+          changePoints={(ev: { target: { value: string } }) =>
             this.setState({ pointCount: +ev.target.value })}
-          changeColor={(ev: any) =>
+          changeColor={(ev: { target: { value: string } }) =>
             this.setState({ lineColor: ev.target.value })}
           play={() => this.play()}
           pause={() => this.pause()}
