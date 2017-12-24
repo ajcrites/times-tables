@@ -37,6 +37,12 @@ const SliderInput = glamorous.input({
   marginRight: '10px',
 });
 
+const ValueSpan = glamorous.span({
+  width: '40px',
+  textAlign: 'right',
+  display: 'inline-block',
+});
+
 export interface TimesTableControlsProps {
   timesTableValue: number;
   pointCountValue: number;
@@ -67,6 +73,14 @@ export class TimesTableControls extends React.Component<
     this.props.pause();
   }
 
+  formatTimesTableValue(value: number) {
+    const displayValue = value.toFixed(1);
+    if ('0' === displayValue.split('.')[1]) {
+      return value.toFixed(0);
+    }
+    return displayValue;
+  }
+
   render() {
     return (
       <ControlsContainer className="iphonex-bottom">
@@ -86,7 +100,9 @@ export class TimesTableControls extends React.Component<
             defaultValue="2"
             onInput={ev => this.props.changeTable(ev)}
           />
-          {this.props.timesTableValue.toFixed(1)}
+          <ValueSpan>
+            {this.formatTimesTableValue(this.props.timesTableValue)}
+          </ValueSpan>
         </BlockLabel>
         <BlockLabel>
           <LabelText>Number of Points: </LabelText>
@@ -98,7 +114,7 @@ export class TimesTableControls extends React.Component<
             defaultValue="10"
             onInput={ev => this.props.changePoints(ev)}
           />
-          {this.props.pointCountValue}
+          <ValueSpan>{this.props.pointCountValue}</ValueSpan>
         </BlockLabel>
         <BlockLabel hideOnPhone={true}>
           <LabelText>Color:</LabelText>
