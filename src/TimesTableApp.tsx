@@ -67,11 +67,11 @@ export class TimesTableApp extends React.Component {
         <TimesTableControls
           timesTableValue={this.state.timesTable}
           pointCountValue={this.state.pointCount}
-          changeTable={(ev: any) =>
+          changeTable={(ev: { target: { value: string } }) =>
             this.setState({ timesTable: +ev.target.value })}
-          changePoints={(ev: any) =>
+          changePoints={(ev: { target: { value: string } }) =>
             this.setState({ pointCount: +ev.target.value })}
-          changeColor={(ev: any) =>
+          changeColor={(ev: { target: { value: string } }) =>
             this.setState({ lineColor: ev.target.value })}
           play={() => this.play()}
           pause={() => this.pause()}

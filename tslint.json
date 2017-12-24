@@ -1,12 +1,6 @@
 {
     "extends": ["tslint-react"],
     "rules": {
-        "align": [
-            true,
-            "parameters",
-            "arguments",
-            "statements"
-        ],
         "ban": false,
         "class-name": true,
         "comment-format": [
@@ -19,6 +13,7 @@
         "indent": [ true, "spaces" ],
         "interface-name": [true, "never-prefix"],
         "jsdoc-format": true,
+        "jsx-alignment": false,
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
         "label-position": true,

@@ -22,7 +22,7 @@ const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
   },
   ({ hideOnPhone }) => ({
     '@media(max-width: 480px)': {
-      display: hideOnPhone ? 'none' : 'block',
+      visibility: hideOnPhone ? 'hidden' : 'visible',
     },
   }),
 );
@@ -69,7 +69,7 @@ export class TimesTableControls extends React.Component<
 
   render() {
     return (
-      <ControlsContainer>
+      <ControlsContainer className="iphonex-bottom">
         <button onClick={() => this.play()} hidden={this.props.playing}>
           ►
         </button>
@@ -100,7 +100,7 @@ export class TimesTableControls extends React.Component<
           />
           {this.props.pointCountValue}
         </BlockLabel>
-        <BlockLabel hideOnPhone>
+        <BlockLabel hideOnPhone={true}>
           <LabelText>Color:</LabelText>
           <input type="color" onInput={ev => this.props.changeColor(ev)} />
         </BlockLabel>
