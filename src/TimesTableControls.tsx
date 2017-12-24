@@ -9,12 +9,23 @@ const ControlsContainer = glamorous.div({
   backgroundColor: '#DDDDDD',
   whiteSpace: 'nowrap',
   padding: '5px',
+  boxSizing: 'border-box',
+  '@media(max-width: 480px)': {
+    width: '100%',
+  },
 });
 
-const BlockLabel = glamorous.label({
-  display: 'block',
-  marginTop: '8px',
-});
+const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
+  {
+    display: 'block',
+    marginTop: '8px',
+  },
+  ({ hideOnPhone }) => ({
+    '@media(max-width: 480px)': {
+      display: hideOnPhone ? 'none' : 'block',
+    },
+  }),
+);
 
 const LabelText = glamorous.span({
   display: 'inline-block',
@@ -89,7 +100,7 @@ export class TimesTableControls extends React.Component<
           />
           {this.props.pointCountValue}
         </BlockLabel>
-        <BlockLabel>
+        <BlockLabel hideOnPhone>
           <LabelText>Color:</LabelText>
           <input type="color" onInput={ev => this.props.changeColor(ev)} />
         </BlockLabel>
