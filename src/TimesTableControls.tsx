@@ -65,13 +65,17 @@ export class TimesTableControls extends React.Component<
     super(props);
   }
 
-  play() {
+  play = () => {
     this.props.play();
-  }
+  };
 
-  pause() {
+  pause = () => {
     this.props.pause();
-  }
+  };
+
+  onTableInput = ev => this.props.changeTable(ev);
+  onPointsInput = ev => this.props.changePoints(ev);
+  onColorInput = ev => this.props.changeColor(ev);
 
   formatTimesTableValue(value: number) {
     const displayValue = value.toFixed(1);
@@ -84,10 +88,10 @@ export class TimesTableControls extends React.Component<
   render() {
     return (
       <ControlsContainer className="iphonex-bottom">
-        <button onClick={() => this.play()} hidden={this.props.playing}>
+        <button onClick={this.play} hidden={this.props.playing}>
           ►
         </button>
-        <button onClick={() => this.pause()} hidden={!this.props.playing}>
+        <button onClick={this.pause} hidden={!this.props.playing}>
           ❚ ❚
         </button>
         <BlockLabel>
@@ -98,7 +102,7 @@ export class TimesTableControls extends React.Component<
             max="100"
             step=".1"
             defaultValue="2"
-            onInput={ev => this.props.changeTable(ev)}
+            onInput={this.onTableInput}
           />
           <ValueSpan>
             {this.formatTimesTableValue(this.props.timesTableValue)}
@@ -112,13 +116,13 @@ export class TimesTableControls extends React.Component<
             max="300"
             step="1"
             defaultValue="10"
-            onInput={ev => this.props.changePoints(ev)}
+            onInput={this.onPointsInput}
           />
           <ValueSpan>{this.props.pointCountValue}</ValueSpan>
         </BlockLabel>
-        <BlockLabel hideOnPhone={true}>
+        <BlockLabel hideOnPhone>
           <LabelText>Color:</LabelText>
-          <input type="color" onInput={ev => this.props.changeColor(ev)} />
+          <input type="color" onInput={this.onColorInput} />
         </BlockLabel>
       </ControlsContainer>
     );
