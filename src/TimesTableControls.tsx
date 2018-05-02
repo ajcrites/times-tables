@@ -73,9 +73,10 @@ export class TimesTableControls extends React.Component<
     this.props.pause();
   };
 
-  onTableInput = ev => this.props.changeTable(ev);
-  onPointsInput = ev => this.props.changePoints(ev);
-  onColorInput = ev => this.props.changeColor(ev);
+  onTableInput = ({ target: { value } }: any) => this.props.changeTable(+value);
+  onPointsInput = ({ target: { value } }: any) =>
+    this.props.changePoints(+value);
+  onColorInput = ({ target: { value } }: any) => this.props.changeColor(value);
 
   formatTimesTableValue(value: number) {
     const displayValue = value.toFixed(1);

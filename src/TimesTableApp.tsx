@@ -70,8 +70,7 @@ export class TimesTableApp extends React.Component {
     });
   };
 
-  changeValue = value => (ev: { target: { value: string } }) =>
-    this.setState({ [value]: +ev.target.value });
+  changeValue = valueName => value => this.setState({ [valueName]: value });
 
   render() {
     return (
