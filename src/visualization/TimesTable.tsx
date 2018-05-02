@@ -84,7 +84,7 @@ export class TimesTable extends React.Component<
       circle = <Circle ctx={this.state.ctx} radius={radius} />;
 
       // The number of points and lines drawn for the diagram
-      const entries = new Array(+this.props.pointCount).fill(1);
+      const entries = Array(+this.props.pointCount).fill(1);
 
       /*
        * Here we create a function to calculate the x,y coordinate of a point

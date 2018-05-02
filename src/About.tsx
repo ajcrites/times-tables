@@ -61,23 +61,17 @@ export class About extends React.Component {
     addAnimation: boolean;
   } = { hidden: true, addAnimation: false };
 
-  animateIn() {
-    this.setState({ hidden: false });
-    setTimeout(() => {
-      this.setState({
-        addAnimation: true,
-      });
+  animate = (hidden, addAnimation = !hidden) => {
+    this.setState({ hidden }, () => {
+      setTimeout(() => {
+        this.setState({ addAnimation });
+      }, 300);
     });
-  }
+  };
 
-  animateOut() {
-    this.setState({
-      addAnimation: false,
-    });
-    setTimeout(() => {
-      this.setState({ hidden: true });
-    }, 300);
-  }
+  animateIn = () => this.animate(false);
+
+  animateOut = () => this.animate(true);
 
   render() {
     let overlayStyle;
@@ -93,17 +87,18 @@ export class About extends React.Component {
 
     return (
       <AboutContainer>
-        <AboutIndicator onClick={() => this.animateIn()}>?</AboutIndicator>
+        <AboutIndicator onClick={this.animateIn}>?</AboutIndicator>
 
         <div hidden={this.state.hidden}>
-          <Overlay onClick={() => this.animateOut()} style={overlayStyle} />
+          <Overlay onClick={this.animateOut} style={overlayStyle} />
           <AboutContent style={contentStyle}>
             <p>
               This is a visualization of a <strong>times table</strong> inspired
               by&nbsp;
               <a
                 href="https://www.youtube.com/watch?v=qhbuKbxJsk8"
-                target="_blank">
+                target="_blank"
+              >
                 This YouTube video by Mathologer
               </a>.
             </p>
@@ -165,7 +160,7 @@ export class About extends React.Component {
               <code>.1</code> every tenth of a second. It will also cycle
               through vibrant colors for the lines.
             </p>
-            <CloseButton onClick={() => this.animateOut()}>×</CloseButton>
+            <CloseButton onClick={this.animateOut}>×</CloseButton>
           </AboutContent>
         </div>
       </AboutContainer>
