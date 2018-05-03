@@ -7,7 +7,7 @@ resource "netlify_site" netlify_site {
   custom_domain = "${var.site_name}"
   repo {
     provider = "github"
-    command = "yarn build"
+    command = "yarn react-scripts-ts build"
     dir = "build"
     repo_path = "ajcrites/times-tables"
     repo_branch = "master"
