@@ -52,6 +52,7 @@ export interface TimesTableControlsProps {
   play: Function;
   pause: Function;
   playing: boolean;
+  colorValue?: string;
 }
 
 /**
@@ -123,7 +124,11 @@ export class TimesTableControls extends React.Component<
         </BlockLabel>
         <BlockLabel hideOnPhone>
           <LabelText>Color:</LabelText>
-          <input type="color" onInput={this.onColorInput} />
+          <input
+            type="color"
+            onInput={this.onColorInput}
+            value={this.props.colorValue}
+          />
         </BlockLabel>
       </ControlsContainer>
     );
