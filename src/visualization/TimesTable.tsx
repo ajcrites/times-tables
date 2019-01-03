@@ -37,7 +37,7 @@ export class TimesTable extends React.Component<
     this.canvas.height = window.innerHeight;
     this.canvas.width = window.innerWidth;
     this.setState({
-      ctx: this.canvas.getContext('2d') as CanvasRenderingContext2D,
+      ctx: this.canvas.getContext('2d'),
     });
 
     window.addEventListener('resize', this.redraw.bind(this));
@@ -120,7 +120,7 @@ export class TimesTable extends React.Component<
        */
       const calculatePoint = (value: number) => {
         const angle =
-          (360 / this.props.pointCount * value - 90) * Math.PI / 180;
+          (((360 / this.props.pointCount) * value - 90) * Math.PI) / 180;
         return [
           Math.sin(angle) * radius + this.canvas.width / 2,
           Math.cos(angle) * radius + this.canvas.height / 2,
@@ -137,18 +137,13 @@ export class TimesTable extends React.Component<
       );
 
       dots = dotPoints.map(([x, y], idx) => (
-        <CircleNumberDot
-          key={idx}
-          ctx={this.state.ctx as CanvasRenderingContext2D}
-          x={x}
-          y={y}
-        />
+        <CircleNumberDot key={idx} ctx={this.state.ctx} x={x} y={y} />
       ));
 
       lines = lineEndPoints.map(([endX, endY], idx) => (
         <LineValue
           key={idx}
-          ctx={this.state.ctx as CanvasRenderingContext2D}
+          ctx={this.state.ctx}
           startX={dotPoints[idx][0]}
           startY={dotPoints[idx][1]}
           endX={endX}
@@ -159,7 +154,7 @@ export class TimesTable extends React.Component<
     }
 
     return (
-      <canvas ref={ref => (this.canvas = ref as HTMLCanvasElement)}>
+      <canvas ref={ref => (this.canvas = ref)}>
         {circle}
         {dots}
         {lines}
