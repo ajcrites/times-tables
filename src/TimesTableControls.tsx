@@ -1,21 +1,22 @@
 import * as React from 'react';
 
-import glamorous from 'glamorous';
+import styled from '@emotion/styled';
 
-const ControlsContainer = glamorous.div({
-  position: 'fixed',
-  bottom: 0,
-  right: 0,
-  backgroundColor: '#DDDDDD',
-  whiteSpace: 'nowrap',
-  padding: '5px',
-  boxSizing: 'border-box',
-  '@media(max-width: 480px)': {
-    width: '100%',
-  },
-});
+const ControlsContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #dddddd;
+  white-space: nowrap;
+  padding: 5px;
+  box-sizing: border-box;
 
-const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const BlockLabel = styled.label<{ hideOnPhone?: boolean }>(
   {
     display: 'block',
     marginTop: '8px',
@@ -27,21 +28,21 @@ const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
   }),
 );
 
-const LabelText = glamorous.span({
-  display: 'inline-block',
-  width: '150px',
-});
+const LabelText = styled.span`
+  display: inline-block;
+  width: 150px;
+`;
 
-const SliderInput = glamorous.input({
-  verticalAlign: 'middle',
-  marginRight: '10px',
-});
+const SliderInput = styled.input`
+  vertical-align: middle;
+  margin-right: 10px;
+`;
 
-const ValueSpan = glamorous.span({
-  width: '40px',
-  textAlign: 'right',
-  display: 'inline-block',
-});
+const ValueSpan = styled.span`
+  width: 40px;
+  text-align: right;
+  display: inline-block;
+`;
 
 export interface TimesTableControlsProps {
   timesTableValue: number;
@@ -126,7 +127,7 @@ export class TimesTableControls extends React.Component<
           <LabelText>Color:</LabelText>
           <input
             type="color"
-            onInput={this.onColorInput}
+            onChange={this.onColorInput}
             value={this.props.colorValue}
           />
         </BlockLabel>

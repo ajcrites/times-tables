@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import glamorous from 'glamorous';
+import styled from '@emotion/styled';
 
 import { TimesTable } from './visualization/TimesTable';
 import { TimesTableControls } from './TimesTableControls';
@@ -39,14 +39,14 @@ function hslToHex(h, s, l) {
 }
 // tslint:enable
 
-const ForkImage = glamorous.a({
-  position: 'fixed',
-  top: 0,
-  right: 0,
-  '@media(max-width: 480px)': {
-    display: 'none',
+const ForkImage = styled.a`
+  position: fixed;
+  top: 0;
+  right: 0;
+  @media(max-width: 480px) {
+    display: none;
   },
-});
+`;
 
 /**
  * Main app container. Renders the About information, the times table itself,
@@ -63,7 +63,7 @@ export class TimesTableApp extends React.Component {
   } = {
     pointCount: 10,
     timesTable: 2,
-    lineColor: '#FF0000',
+    lineColor: '#000000',
     playing: false,
   };
 

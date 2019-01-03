@@ -1,56 +1,57 @@
 import * as React from 'react';
 
-import glamorous from 'glamorous';
+import styled from '@emotion/styled';
 
-const AboutIndicator = glamorous.span({
-  cursor: 'pointer',
-  backgroundColor: '#FA4616',
-  fontSize: '25px',
-  color: 'white',
-  borderRadius: '50%',
-  width: '30px',
-  height: '30px',
-  display: 'inline-block',
-  textAlign: 'center',
-});
+const AboutIndicator = styled.span`
+  cursor: pointer;
+  background-color: #fa4616;
+  font-size: 25px;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  text-align: center;
+`;
 
-const AboutContainer = glamorous.div({
-  position: 'absolute',
-  top: '10px',
-  left: '10px',
-});
+const AboutContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+`;
 
-const Overlay = glamorous.div({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'black',
-  opacity: 0,
-  transition: 'opacity 300ms',
-});
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 300ms;
+`;
 
-const AboutContent = glamorous.article({
-  position: 'fixed',
-  top: '50%',
-  left: '10%',
-  backgroundColor: 'white',
-  borderRadius: '15px',
-  width: '80%',
-  maxHeight: '80%',
-  padding: '25px',
-  transition: 'opacity 300ms, transform 300ms',
-  boxSizing: 'border-box',
-  overflow: 'auto',
-});
+const AboutContent = styled.article`
+  position: fixed;
+  top: 50%;
+  left: 10%;
+  background-color: white;
+  border-radius: 15px;
+  width: 80%;
+  max-height: 80%;
+  padding: 25px;
+  transition: opacity 300ms, transform 300ms;
+  box-sizing: border-box;
+  overflow: auto;
+`;
 
-const CloseButton = glamorous.span({
-  position: 'absolute',
-  top: '10px',
-  right: '15px',
-  cursor: 'pointer',
-});
+const CloseButton = styled.span`
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+`;
 
 /**
  * About page explaining what the app is all about

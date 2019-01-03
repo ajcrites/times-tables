@@ -14,17 +14,17 @@
     ]
   },
   "dependencies": {
-    "glamor": "^2.20.40",
-    "glamorous": "^4.12.5",
+    "@emotion/core": "^10.0.5",
+    "@emotion/styled": "^10.0.5",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
     "lodash": "^4.17.10",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.108",
     "@types/node": "^10.0.2",
-    "@types/react": "^16.3.13",
-    "@types/react-dom": "^16.0.5",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.5",
     "prettier": "^1.12.1",
