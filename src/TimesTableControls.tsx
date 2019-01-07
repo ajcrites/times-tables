@@ -1,21 +1,27 @@
 import * as React from 'react';
 
-import glamorous from 'glamorous';
+import styled from '@emotion/styled';
 
-const ControlsContainer = glamorous.div({
-  position: 'fixed',
-  bottom: 0,
-  right: 0,
-  backgroundColor: '#DDDDDD',
-  whiteSpace: 'nowrap',
-  padding: '5px',
-  boxSizing: 'border-box',
-  '@media(max-width: 480px)': {
-    width: '100%',
-  },
-});
+import { TimesTableContext } from './TimesTableContext';
+import { getVibrantColor } from './getVibrantColor';
 
-const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
+const { useRef, useContext, useState } = React;
+
+const ControlsContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #dddddd;
+  white-space: nowrap;
+  padding: 5px;
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const BlockLabel = styled.label<{ hideOnPhone?: boolean }>(
   {
     display: 'block',
     marginTop: '8px',
@@ -27,110 +33,117 @@ const BlockLabel = glamorous.label<{ hideOnPhone?: boolean }>(
   }),
 );
 
-const LabelText = glamorous.span({
-  display: 'inline-block',
-  width: '150px',
-});
+const LabelText = styled.span`
+  display: inline-block;
+  width: 150px;
+`;
 
-const SliderInput = glamorous.input({
-  verticalAlign: 'middle',
-  marginRight: '10px',
-});
+const SliderInput = styled.input`
+  vertical-align: middle;
+  margin-right: 10px;
+`;
 
-const ValueSpan = glamorous.span({
-  width: '40px',
-  textAlign: 'right',
-  display: 'inline-block',
-});
-
-export interface TimesTableControlsProps {
-  timesTableValue: number;
-  pointCountValue: number;
-  changeTable: Function;
-  changePoints: Function;
-  changeColor: Function;
-  play: Function;
-  pause: Function;
-  playing: boolean;
-  colorValue?: string;
-}
+const ValueSpan = styled.span`
+  width: 40px;
+  text-align: right;
+  display: inline-block;
+`;
 
 /**
  * Controls that allow you to set the times table as well as the number of
  * points as well as play/pause functionality.
  */
-export class TimesTableControls extends React.Component<
-  TimesTableControlsProps
-> {
-  constructor(props: TimesTableControlsProps) {
-    super(props);
-  }
+export const TimesTableControls = () => {
+  const playTimer = useRef(null);
+  const {
+    timesTable,
+    lineColor,
+    pointCount,
 
-  play = () => {
-    this.props.play();
+    setPointCount,
+    setTimesTable,
+    setLineColor,
+  } = useContext(TimesTableContext);
+
+  const [playing, setPlaying] = useState(false);
+
+  const pause = () => {
+    clearInterval(playTimer.current);
+    setPlaying(false);
   };
 
-  pause = () => {
-    this.props.pause();
+  const play = () => {
+    setPlaying(true);
+    playTimer.current = setInterval(() => {
+      setTimesTable(prevTimesTable => {
+        let nextTimesTable = prevTimesTable + 0.1;
+        if (nextTimesTable > 100) {
+          pause();
+          nextTimesTable = 100;
+        }
+
+        setLineColor(prevLineColor => {
+          let nextLineColor = prevLineColor;
+          if ('5' === nextTimesTable.toFixed(1).split('.')[1]) {
+            nextLineColor = getVibrantColor();
+          }
+
+          return nextLineColor;
+        });
+
+        return nextTimesTable;
+      });
+    }, 100);
   };
 
-  onTableInput = ({ target: { value } }: any) => this.props.changeTable(+value);
-  onPointsInput = ({ target: { value } }: any) =>
-    this.props.changePoints(+value);
-  onColorInput = ({ target: { value } }: any) => this.props.changeColor(value);
+  const onTableInput = ({ target: { value } }) => setTimesTable(+value);
+  const onPointsInput = ({ target: { value } }) => setPointCount(+value);
+  const onColorInput = ({ target: { value } }) => setLineColor(value);
 
-  formatTimesTableValue(value: number) {
+  const formatTimesTableValue = (value: number) => {
     const displayValue = value.toFixed(1);
     if ('0' === displayValue.split('.')[1]) {
       return value.toFixed(0);
     }
     return displayValue;
-  }
+  };
 
-  render() {
-    return (
-      <ControlsContainer className="iphonex-bottom">
-        <button onClick={this.play} hidden={this.props.playing}>
-          ►
-        </button>
-        <button onClick={this.pause} hidden={!this.props.playing}>
-          ❚ ❚
-        </button>
-        <BlockLabel>
-          <LabelText>Times Table: </LabelText>
-          <SliderInput
-            type="range"
-            min=".1"
-            max="100"
-            step=".1"
-            defaultValue="2"
-            onInput={this.onTableInput}
-          />
-          <ValueSpan>
-            {this.formatTimesTableValue(this.props.timesTableValue)}
-          </ValueSpan>
-        </BlockLabel>
-        <BlockLabel>
-          <LabelText>Number of Points: </LabelText>
-          <SliderInput
-            type="range"
-            min="2"
-            max="300"
-            step="1"
-            defaultValue="10"
-            onInput={this.onPointsInput}
-          />
-          <ValueSpan>{this.props.pointCountValue}</ValueSpan>
-        </BlockLabel>
-        <BlockLabel hideOnPhone>
-          <LabelText>Color:</LabelText>
-          <input
-            type="color"
-            onInput={this.onColorInput}
-            value={this.props.colorValue}
-          />
-        </BlockLabel>
-      </ControlsContainer>
-    );
-  }
-}
+  return (
+    <ControlsContainer className="iphonex-bottom">
+      <button onClick={play} hidden={playing}>
+        ►
+      </button>
+      <button onClick={pause} hidden={!playing}>
+        ❚ ❚
+      </button>
+      <BlockLabel>
+        <LabelText>Times Table: </LabelText>
+        <SliderInput
+          type="range"
+          min=".1"
+          max="100"
+          step=".1"
+          value={timesTable}
+          onChange={onTableInput}
+        />
+        <ValueSpan>{formatTimesTableValue(timesTable)}</ValueSpan>
+      </BlockLabel>
+      <BlockLabel>
+        <LabelText>Number of Points: </LabelText>
+        <SliderInput
+          type="range"
+          min="2"
+          max="300"
+          step="1"
+          defaultValue="10"
+          onChange={onPointsInput}
+        />
+        <ValueSpan>{pointCount}</ValueSpan>
+      </BlockLabel>
+      <BlockLabel hideOnPhone>
+        <LabelText>Color:</LabelText>
+        <input type="color" onChange={onColorInput} value={lineColor} />
+      </BlockLabel>
+    </ControlsContainer>
+  );
+};

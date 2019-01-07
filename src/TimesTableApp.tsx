@@ -1,127 +1,46 @@
 import * as React from 'react';
-
-import glamorous from 'glamorous';
+import styled from '@emotion/styled';
 
 import { TimesTable } from './visualization/TimesTable';
 import { TimesTableControls } from './TimesTableControls';
 import { About } from './About';
+import { TimesTableContextProps, TimesTableContext } from './TimesTableContext';
 
-import { random } from 'lodash';
+const { useState } = React;
 
-//tslint:disable
-function hslToHex(h, s, l) {
-  h /= 360;
-  s /= 100;
-  l /= 100;
-  let r, g, b;
-  if (s === 0) {
-    r = g = b = l; // achromatic
-  } else {
-    const hue2rgb = (p, q, t) => {
-      if (t < 0) t += 1;
-      if (t > 1) t -= 1;
-      if (t < 1 / 6) return p + (q - p) * 6 * t;
-      if (t < 1 / 2) return q;
-      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-      return p;
-    };
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-    r = hue2rgb(p, q, h + 1 / 3);
-    g = hue2rgb(p, q, h);
-    b = hue2rgb(p, q, h - 1 / 3);
-  }
-  const toHex = x => {
-    const hex = Math.round(x * 255).toString(16);
-    return hex.length === 1 ? '0' + hex : hex;
-  };
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-}
-// tslint:enable
-
-const ForkImage = glamorous.a({
-  position: 'fixed',
-  top: 0,
-  right: 0,
-  '@media(max-width: 480px)': {
-    display: 'none',
+const ForkImage = styled.a`
+  position: fixed;
+  top: 0;
+  right: 0;
+  @media(max-width: 480px) {
+    display: none;
   },
-});
+`;
 
 /**
  * Main app container. Renders the About information, the times table itself,
  * and the times table controls
  */
-export class TimesTableApp extends React.Component {
-  playInterval: number;
+export const TimesTableApp = () => {
+  const [pointCount, setPointCount] = useState(10);
+  const [timesTable, setTimesTable] = useState(2);
+  const [lineColor, setLineColor] = useState('#000000');
 
-  state: {
-    pointCount: number;
-    timesTable: number;
-    lineColor: string;
-    playing: boolean;
-  } = {
-    pointCount: 10,
-    timesTable: 2,
-    lineColor: '#FF0000',
-    playing: false,
+  const state: TimesTableContextProps = {
+    pointCount,
+    timesTable,
+    lineColor,
+
+    setPointCount,
+    setTimesTable,
+    setLineColor,
   };
 
-  pause = () => {
-    clearInterval(this.playInterval);
-    this.setState({ playing: false });
-  };
-
-  getVibrantColor() {
-    return hslToHex(random(0, 360), random(70, 100), random(35, 55));
-  }
-
-  play = () => {
-    this.playInterval = window.setInterval(() => {
-      let timesTable = this.state.timesTable + 0.1;
-      let lineColor = this.state.lineColor;
-      if ('5' === timesTable.toFixed(1).split('.')[1]) {
-        lineColor = this.getVibrantColor();
-      }
-
-      if (timesTable > 100) {
-        timesTable = 100;
-        this.pause();
-      }
-
-      this.setState({
-        timesTable,
-        lineColor,
-      });
-    }, 100);
-
-    this.setState({
-      lineColor: this.getVibrantColor(),
-      playing: true,
-    });
-  };
-
-  changeValue = valueName => value => this.setState({ [valueName]: value });
-
-  render() {
-    return (
-      <main>
-        <TimesTable
-          pointCount={this.state.pointCount}
-          timesTable={this.state.timesTable}
-          lineColor={this.state.lineColor}
-        />
-        <TimesTableControls
-          timesTableValue={this.state.timesTable}
-          pointCountValue={this.state.pointCount}
-          changeTable={this.changeValue('timesTable')}
-          changePoints={this.changeValue('pointCount')}
-          changeColor={this.changeValue('lineColor')}
-          colorValue={this.state.lineColor}
-          play={this.play}
-          pause={this.pause}
-          playing={this.state.playing}
-        />
+  return (
+    <main>
+      <TimesTableContext.Provider value={state}>
+        <TimesTable />
+        <TimesTableControls />
         <About />
         <ForkImage href="https://github.com/ajcrites/times-tables">
           {/* tslint:disable:max-line-length */}
@@ -132,7 +51,7 @@ export class TimesTableApp extends React.Component {
           />
           {/* tslint:enable */}
         </ForkImage>
-      </main>
-    );
-  }
-}
+      </TimesTableContext.Provider>
+    </main>
+  );
+};
