@@ -58,7 +58,6 @@ export const TimesTable: React.SFC<TimesTableProps> = ({
     },
     // No need to redraw the canvas if nothing visual has changed.
     // Setting height / width clears the canvas (even to the same value)
-    [height, width, pointCount, lineColor, timesTable],
   );
 
   let circle;
