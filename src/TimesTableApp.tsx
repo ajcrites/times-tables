@@ -69,11 +69,7 @@ export class TimesTableApp extends React.Component {
     return (
       <main>
         <TimesTableContext.Provider value={this.state}>
-          <TimesTable
-            pointCount={this.state.pointCount}
-            timesTable={this.state.timesTable}
-            lineColor={this.state.lineColor}
-          />
+          <TimesTable />
           <TimesTableControls />
           <About />
           <ForkImage href="https://github.com/ajcrites/times-tables">

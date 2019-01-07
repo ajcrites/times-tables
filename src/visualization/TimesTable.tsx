@@ -3,24 +3,16 @@ import * as React from 'react';
 import { Circle } from './Circle';
 import { CircleNumberDot } from './CircleNumberDot';
 import { LineValue } from './LineValue';
+import { TimesTableContext } from '../TimesTableContext';
 
-const { useEffect, useState, useRef } = React;
-
-export interface TimesTableProps {
-  pointCount: number;
-  timesTable: number;
-  lineColor: string;
-}
+const { useContext, useEffect, useRef, useState } = React;
 
 /**
  * Times Table visualization. Renders the canvas and all components that
  * draw to the canvas. Does the calculations for the properties to render.
  */
-export const TimesTable: React.SFC<TimesTableProps> = ({
-  pointCount,
-  timesTable,
-  lineColor,
-}) => {
+export const TimesTable = () => {
+  const { pointCount, timesTable, lineColor } = useContext(TimesTableContext);
   const canvasRef = useRef(null);
   const [{ height, width }, setDimensions] = useState<{
     height?: number;
