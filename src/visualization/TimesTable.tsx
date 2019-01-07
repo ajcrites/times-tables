@@ -70,8 +70,7 @@ export const TimesTable: React.SFC<TimesTableProps> = ({
     const ctx = canvas.getContext('2d');
     // Radius of the circle part of the diagram. This takes up about 80% of
     // the screen but is clamped to width or height (whichever is smaller).
-    const radius =
-      canvas.width > canvas.height ? canvas.height * 0.4 : canvas.width * 0.4;
+    const radius = Math.min(canvas.width, canvas.height) * 0.4;
     circle = <Circle ctx={ctx} radius={radius} />;
 
     // The number of points and lines drawn for the diagram

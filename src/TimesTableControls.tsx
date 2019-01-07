@@ -104,8 +104,8 @@ export class TimesTableControls extends React.Component<
             min=".1"
             max="100"
             step=".1"
-            defaultValue="2"
-            onInput={this.onTableInput}
+            value={this.props.timesTableValue}
+            onChange={this.onTableInput}
           />
           <ValueSpan>
             {this.formatTimesTableValue(this.props.timesTableValue)}
