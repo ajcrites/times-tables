@@ -1,12 +1,3 @@
 {
-  "extends": "./node_modules/ts-config-mobiquity-react-native/tsconfig.json",
-  "compilerOptions": {
-    "outDir": "build/dist",
-    "jsx": "react",
-    "rootDir": "src"
-  },
-  "exclude": [
-    "node_modules",
-    "build"
-  ]
+  "extends": "./node_modules/ts-config-mobiquity-react-native/tsconfig.json"
 }
