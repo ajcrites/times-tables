@@ -79,22 +79,12 @@ export const About = () => {
   };
 
   const animateOut = async () => {
-    const contentAnimationAwait = new Promise(
-      resolve =>
-        (contentRef.current.animate(
-          contentAnimation,
-          reverseAnimationSettings,
-        ).onfinish = resolve),
-    );
-    const overlayAnimationAwait = new Promise(
-      resolve =>
-        (overlayRef.current.animate(
-          overlayAnimation,
-          reverseAnimationSettings,
-        ).onfinish = resolve),
-    );
-
-    await Promise.all([contentAnimationAwait, overlayAnimationAwait]);
+    await Promise.all([
+      contentRef.current.animate(contentAnimation, reverseAnimationSettings)
+        .finished,
+      overlayRef.current.animate(overlayAnimation, reverseAnimationSettings)
+        .finished,
+    ]);
     setHidden(true);
   };
 

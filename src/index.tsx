@@ -1,4 +1,4 @@
-import 'web-animations-js';
+import 'web-animations-js/web-animations-next-lite.min';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { TimesTableApp } from './TimesTableApp';
