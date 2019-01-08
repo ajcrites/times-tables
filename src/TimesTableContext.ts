@@ -10,12 +10,6 @@ export interface TimesTableContextProps {
   setLineColor: (value) => void;
 }
 
-export const TimesTableContext = createContext<TimesTableContextProps>({
-  pointCount: 0,
-  timesTable: 0,
-  lineColor: '',
-
-  setPointCount: () => {},
-  setTimesTable: () => {},
-  setLineColor: () => {},
-});
+export const TimesTableContext = createContext<TimesTableContextProps>(
+  {} as any,
+);

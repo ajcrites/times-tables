@@ -20,37 +20,28 @@ export const TimesTable = () => {
   }>({});
 
   const resize = () => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }
+    setDimensions({
+      height: window.innerHeight,
+      width: window.innerWidth,
+    });
   };
 
   /**
    * When the component mounts, the canvas has been rendered in the DOM.
    * Set the canvas context to the state so we can operate on it.
    */
-  useEffect(
-    () => {
-      resize();
-      const canvas = canvasRef.current;
-      canvas.height = height;
-      canvas.width = width;
+  useEffect(() => {
+    resize();
+    const canvas = canvasRef.current;
+    // setting width/height clears the canvas
+    canvas.height = height;
+    canvas.width = width;
+  });
 
-      window.addEventListener('resize', resize);
-
-      /**
-       * Clear the canvas any time new values are recieved (times table / point count).
-       * Otherwise the new diagram will be drawn over the previous one.
-       */
-      return () => window.removeEventListener('resize', resize);
-    },
-    // No need to redraw the canvas if nothing visual has changed.
-    // Setting height / width clears the canvas (even to the same value)
-  );
+  useEffect(() => {
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, []);
 
   let circle;
   let dots;
