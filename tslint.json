@@ -1,3 +1,6 @@
 {
-  "extends": "ts-config-mobiquity-react-native"
+  "extends": "ts-config-mobiquity-react-native",
+  "rules": {
+    "import-name": [true, { "react": "React" }]
+  }
 }

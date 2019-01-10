@@ -1,3 +1,7 @@
 {
-  "extends": "./node_modules/ts-config-mobiquity-react-native/tsconfig.json"
+  "extends": "./node_modules/ts-config-mobiquity-react-native/tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "es6"
+  }
 }

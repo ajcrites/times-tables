@@ -1,11 +1,9 @@
-import * as React from 'react';
+import React, { useRef, useContext, useState } from 'react';
 
 import styled from '@emotion/styled';
 
 import { TimesTableContext } from './TimesTableContext';
 import { getVibrantColor } from './getVibrantColor';
-
-const { useRef, useContext, useState } = React;
 
 const ControlsContainer = styled.div`
   position: fixed;

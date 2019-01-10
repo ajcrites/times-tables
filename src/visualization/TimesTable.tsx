@@ -1,11 +1,9 @@
-import * as React from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import { Circle } from './Circle';
 import { CircleNumberDot } from './CircleNumberDot';
 import { LineValue } from './LineValue';
 import { TimesTableContext } from '../TimesTableContext';
-
-const { useContext, useEffect, useRef, useState } = React;
 
 /**
  * Times Table visualization. Renders the canvas and all components that

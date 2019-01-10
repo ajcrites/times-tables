@@ -1,12 +1,10 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { TimesTable } from './visualization/TimesTable';
 import { TimesTableControls } from './TimesTableControls';
 import { About } from './About';
 import { TimesTableContextProps, TimesTableContext } from './TimesTableContext';
-
-const { useState } = React;
 
 const ForkImage = styled.a`
   position: fixed;
