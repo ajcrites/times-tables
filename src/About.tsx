@@ -1,8 +1,6 @@
-import * as React from 'react';
+import React, { useState, useRef } from 'react';
 
 import styled from '@emotion/styled';
-
-const { useState, useRef } = React;
 
 const AboutIndicator = styled.span`
   cursor: pointer;
