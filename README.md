@@ -5,8 +5,8 @@ about circular times table diagrams.
 
 ## For Developers
 
-Simply `yarn` and then `yarn react-scripts-ts start` to have the app served
-locally on `localhost:3000`.
+Simply `yarn` and then `yarn parcel serve src/index.html` to have the app served
+locally on `localhost:1234`.
 
 ## Deployment
 
